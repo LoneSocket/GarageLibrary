@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GarageLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/GarageLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GarageLibrary_main.iml" filepath="$PROJECT_DIR$/.idea/modules/GarageLibrary_main.iml" group="GarageLibrary" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GarageLibrary_test.iml" filepath="$PROJECT_DIR$/.idea/modules/GarageLibrary_test.iml" group="GarageLibrary" />
+    </modules>
+  </component>
+</project>
