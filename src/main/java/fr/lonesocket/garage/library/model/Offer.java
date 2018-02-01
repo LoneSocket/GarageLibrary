@@ -37,4 +37,12 @@ public class Offer {
     public List<Item> getWantsItems() {
         return wants;
     }
+
+    public void addHasItem(Item item) {
+        has.add(item);
+    }
+
+    public void addWantsItem(Item item) {
+        wants.add(item);
+    }
 }
