@@ -88,8 +88,8 @@ public class Loader {
     private Item parseItem(Element element) {
         String[] information = element.attr("href").split("[=&]");
         int id = Integer.parseInt(information[1]);
-        int certificationId = Integer.parseInt(information[3]);
-        int paintId = Integer.parseInt(information[5]);
+        int certificationId = parsePossibleEmptyId(information[3]);
+        int paintId = parsePossibleEmptyId(information[5]);
         Element displayItem = element.child(0);
         String imgUrl = displayItem.child(0).attr("src");
         Elements amounts = displayItem.getElementsByClass("rlg-trade-display-item__amount");
@@ -98,5 +98,12 @@ public class Loader {
             quantity = Integer.parseInt(amounts.get(0).text());
         }
         return new Item(id, certificationId, paintId, imgUrl, quantity);
+    }
+
+    private int parsePossibleEmptyId(String str) {
+        if(str.isEmpty()) {
+           return 0;
+        }
+        return Integer.parseInt(str);
     }
 }
