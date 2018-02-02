@@ -10,7 +10,7 @@ public class Offer {
     private List<Item> has;
     private List<Item> wants;
 
-    public Offer(String steamLink, String garageLink, String message){
+    public Offer(String steamLink, String garageLink, String message) {
         has = new ArrayList<>();
         wants = new ArrayList<>();
         this.steamLink = steamLink;
@@ -36,5 +36,13 @@ public class Offer {
 
     public List<Item> getWantsItems() {
         return wants;
+    }
+
+    public void addHasItem(Item item) {
+        has.add(item);
+    }
+
+    public void addWantsItem(Item item) {
+        wants.add(item);
     }
 }
