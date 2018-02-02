@@ -1,1 +1,10 @@
 language: java
+
+addons:
+  sonarcloud:
+    organization: "lonesocket-github"
+    token:
+      secure: "zLWtdcX62yZQ5/tPDOMCRHJLR3Q/VnNflatvfswPN6te+zdHlxfoaeDXWlJ9a4odaQf1iLgEq/EHt1CzCfw5ptUG8xAPcU11UK5IH22G67UVCCNvn6H5GWaQM5E6KsF2IBqO95O6pwPwPPq2X7gSAeMgU6Q4WyWoo96gqC/9cCg8Op30CjtTLXlA+VXYAsz7mEl2e42sCqA4iObIEEdmfiDrin6VJ7poC9geTnBREeyaMjHWwvebtB76hgd4PF5/4ITViMzQJt0NB8sPlnALvbeX78YNFKwuqu3hk7/QddTNO3noSsEqrDc9eM/5Yx4nsjfckWjJ1YhxLd8zY9I5gZxywZEq3RG+g5miSpzTGmpAWhR4Eg5b/MBqQMIZ5PPaxOcNc3yiLB6R2qNxErIqS9pmPchg3ZjrC48O3ZD57ZyemkU6mprAmx6oLacSy/gEjhjVXWb3zXayeeLxlr0y9ChDMoGeUZWRVPlVVNp9Pxr0J8Nd5lwtyQXvy7t0nJo656TPYMRQ9hm3ydDt2zNnG6y5hKmQs2jWf3xHRbCxAfkHvu1pGjFK8/ttTWzQhEd/zdBYRCjMQ2FMrMilwsV0awp9pR8aH3ErwF1VK5Vop6YJ3jSNhCCe/936bH0SUAlNtEM0FfZ8jxXSDe3PlWKKKFht4an+r2aqmkKOSEoZgIY="
+
+script:
+  - ./gradlew sonarqube -Dsonar.organization=lonesocket-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=594e095eedc90903a604b3f682a5c595cb9b8265
