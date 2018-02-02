@@ -94,7 +94,7 @@ public class Loader {
         String imgUrl = displayItem.child(0).attr("src");
         Elements amounts = displayItem.getElementsByClass("rlg-trade-display-item__amount");
         int quantity = 1;
-        if (amounts.size() > 0) {
+        if (!amounts.isEmpty()) {
             quantity = Integer.parseInt(amounts.get(0).text());
         }
         return new Item(id, certificationId, paintId, imgUrl, quantity);
