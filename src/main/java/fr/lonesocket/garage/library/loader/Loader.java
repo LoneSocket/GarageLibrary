@@ -8,7 +8,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,25 +61,25 @@ public class Loader {
         String steamLink = null;
         String garageLink = null;
         Elements notes = element.getElementsByClass("rlg-trade-note-container");
-        if(notes.size() == 1){
+        if (notes.size() == 1) {
             note = notes.get(0).child(1).child(0).child(1).text();
         }
         Elements links = element.getElementsByClass("rlg-trade-link-container");
-        if(links.size() == 1){
+        if (links.size() == 1) {
             Element p = links.get(0).child(0).child(0).child(0);
             garageLink = p.child(0).attr("href");
-            if(p.children().size() >= 2) {
+            if (p.children().size() >= 2) {
                 steamLink = p.child(1).attr("href");
             }
         }
         Offer offer = new Offer(steamLink, garageLink, note);
         Element items = element.getElementsByClass("rlg-trade-display-items").get(0);
         Elements hasItems = items.child(0).children();
-        for(Element item : hasItems){
+        for (Element item : hasItems) {
             offer.addHasItem(parseItem(item));
         }
         Elements wantItems = items.child(1).children();
-        for(Element item : wantItems){
+        for (Element item : wantItems) {
             offer.addWantsItem(parseItem(item));
         }
         return offer;
@@ -92,7 +94,7 @@ public class Loader {
         String imgUrl = displayItem.child(0).attr("src");
         Elements amounts = displayItem.getElementsByClass("rlg-trade-display-item__amount");
         int quantity = 1;
-        if(amounts.size() > 0){
+        if (amounts.size() > 0) {
             quantity = Integer.parseInt(amounts.get(0).text());
         }
         return new Item(id, certificationId, paintId, imgUrl, quantity);

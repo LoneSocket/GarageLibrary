@@ -39,7 +39,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void parseItemTest() throws Exception {
+    public void parseItemTest() {
         Loader loader = new Loader();
         List<Offer> offers = loader.parseDocument(doc);
         Assert.assertEquals(496, offers.get(0).getHasItems().get(0).getId());
