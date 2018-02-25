@@ -49,7 +49,7 @@ public class Loader {
         try {
             return referenceParser.getPaints(getPage());
         } catch (ReferenceParserException e) {
-            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
+            throw new LoaderException("Cannot load the paints : " + e.getMessage(), e);
         }
     }
 
@@ -57,7 +57,7 @@ public class Loader {
         try {
             return referenceParser.getPlatforms(getPage());
         } catch (ReferenceParserException e) {
-            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
+            throw new LoaderException("Cannot load the platforms : " + e.getMessage(), e);
         }
     }
 
