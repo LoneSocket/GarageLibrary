@@ -3,7 +3,7 @@ plugins {
 }
 
 def programId = 'fr.lonesocket'
-def programVersion = '0.1'
+def programVersion = '0.2'
 
 group programId
 version programVersion
