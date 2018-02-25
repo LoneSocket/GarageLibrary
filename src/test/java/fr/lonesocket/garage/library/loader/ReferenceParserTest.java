@@ -25,19 +25,53 @@ public class ReferenceParserTest {
 
     @Test
     public void parseItemsTest() throws Exception {
-        Map<Integer, String> referenceItems = new ReferenceParser().getReferenceItems(doc);
+        Map<String, String> referenceItems = new ReferenceParser().getReferenceItems(doc);
         Assert.assertEquals(455, referenceItems.size());
-    }
-
-    @Test
-    public void parseItemTest() throws Exception {
-        Map<Integer, String> referenceItems = new ReferenceParser().getReferenceItems(doc);
-        Assert.assertEquals("Saptarishi", referenceItems.get(743));
+        Assert.assertEquals("Saptarishi", referenceItems.get("743"));
     }
 
     @Test(expected = ReferenceParserException.class)
     public void parseItemsWithoutItemsTest() throws Exception {
         Document doc = Jsoup.parse("<html></html>");
         new ReferenceParser().getReferenceItems(doc);
+    }
+
+    @Test
+    public void parseCertificationsTest() throws Exception {
+        Map<String, String> certifications = new ReferenceParser().getCertifications(doc);
+        Assert.assertEquals(17, certifications.size());
+        Assert.assertEquals("Paragon", certifications.get("7"));
+    }
+
+    @Test(expected = ReferenceParserException.class)
+    public void parseCertificationsWithoutCertificationTest() throws Exception {
+        Document doc = Jsoup.parse("<html></html>");
+        new ReferenceParser().getCertifications(doc);
+    }
+
+    @Test
+    public void parsePaintsTest() throws Exception {
+        Map<String, String> paints = new ReferenceParser().getPaints(doc);
+        Assert.assertEquals(15, paints.size());
+        Assert.assertEquals("Titanium White", paints.get("3"));
+    }
+
+    @Test(expected = ReferenceParserException.class)
+    public void parsePaintsWithoutPaintTest() throws Exception {
+        Document doc = Jsoup.parse("<html></html>");
+        new ReferenceParser().getPaints(doc);
+    }
+
+    @Test
+    public void parsePlatformsTest() throws Exception {
+        Map<String, String> platforms = new ReferenceParser().getPlatforms(doc);
+        Assert.assertEquals(5, platforms.size());
+        Assert.assertEquals("Xbox One", platforms.get("3"));
+    }
+
+    @Test(expected = ReferenceParserException.class)
+    public void parsePlatformsWithoutPlatformTest() throws Exception {
+        Document doc = Jsoup.parse("<html></html>");
+        new ReferenceParser().getPlatforms(doc);
     }
 }

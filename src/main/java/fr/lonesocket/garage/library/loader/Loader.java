@@ -15,20 +15,53 @@ import java.util.Map;
 public class Loader {
     private static final String URL = "https://rocket-league.com/trading";
     private static final String USER_AGENT_HEADER = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0";
+    private Document doc;
+    private final ReferenceParser referenceParser;
+    private final OfferParser offerParser;
 
-    public List<Offer> getOffers() throws LoaderException {
-        return new OfferParser().parseOffers(getPage());
+    public Loader() {
+        doc = null;
+        referenceParser = new ReferenceParser();
+        offerParser = new OfferParser();
     }
 
-    public Map<Integer, String> getReferenceItems() throws LoaderException {
+    public List<Offer> getOffers() throws LoaderException {
+        return offerParser.parseOffers(getCurrentPage());
+    }
+
+    public Map<String, String> getReferenceItems() throws LoaderException {
         try {
-            return new ReferenceParser().getReferenceItems(getPage());
+            return referenceParser.getReferenceItems(getPage());
         } catch (ReferenceParserException e) {
             throw new LoaderException("Cannot load the reference items : " + e.getMessage(), e);
         }
     }
 
-    private Document getPage() throws LoaderException {
+    public Map<String, String> getCertifications() throws LoaderException {
+        try {
+            return referenceParser.getCertifications(getPage());
+        } catch (ReferenceParserException e) {
+            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
+        }
+    }
+
+    public Map<String, String> getPaints() throws LoaderException {
+        try {
+            return referenceParser.getPaints(getPage());
+        } catch (ReferenceParserException e) {
+            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
+        }
+    }
+
+    public Map<String, String> getPlatforms() throws LoaderException {
+        try {
+            return referenceParser.getPlatforms(getPage());
+        } catch (ReferenceParserException e) {
+            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
+        }
+    }
+
+    private Document getCurrentPage() throws LoaderException {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(URL).openConnection();
             conn.setRequestProperty("User-Agent", USER_AGENT_HEADER);
@@ -41,7 +74,8 @@ public class Loader {
                         builder.append(line).append("\n");
                     }
                 }
-                return Jsoup.parse(builder.toString());
+                doc = Jsoup.parse(builder.toString());
+                return doc;
             }
             throw new LoaderException("The server returned an " + conn.getResponseCode() + " error");
         } catch (IOException e) {
@@ -49,4 +83,10 @@ public class Loader {
         }
     }
 
+    private Document getPage() throws LoaderException {
+        if(doc == null){
+            getCurrentPage();
+        }
+        return doc;
+    }
 }

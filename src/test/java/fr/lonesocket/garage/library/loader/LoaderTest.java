@@ -16,9 +16,30 @@ public class LoaderTest {
     }
 
     @Test
-    public void getReferenceItems() throws Exception {
+    public void getReferenceItemsTest() throws Exception {
         Loader loader = new Loader();
-        Map<Integer, String> referenceItems = loader.getReferenceItems();
+        Map<String, String> referenceItems = loader.getReferenceItems();
         Assert.assertFalse(referenceItems.isEmpty());
+    }
+
+    @Test
+    public void getCertificationsTest() throws Exception {
+        Loader loader = new Loader();
+        Map<String, String> certifications = loader.getCertifications();
+        Assert.assertFalse(certifications.isEmpty());
+    }
+
+    @Test
+    public void getPaints() throws Exception {
+        Loader loader = new Loader();
+        Map<String, String> paints = loader.getPaints();
+        Assert.assertFalse(paints.isEmpty());
+    }
+
+    @Test
+    public void getPlatforms() throws Exception {
+        Loader loader = new Loader();
+        Map<String, String> platforms = loader.getPlatforms();
+        Assert.assertFalse(platforms.isEmpty());
     }
 }
