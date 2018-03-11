@@ -50,4 +50,11 @@ public class OfferParserTest {
         Offer offer = offers.get(0);
         Assert.assertEquals(Platform.STEAM, offer.getPlatform());
     }
+
+    @Test
+    public void getUsernameTest() {
+        List<Offer> offers = new OfferParser().parseOffers(doc);
+        Offer offer = offers.get(3);
+        Assert.assertEquals("Noobyto", offer.getUsername());
+    }
 }

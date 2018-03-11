@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Offer {
+    private final String username;
     private final String message;
     private final String steamLink;
     private final String garageLink;
@@ -12,14 +13,19 @@ public class Offer {
     private List<Item> has;
     private List<Item> wants;
 
-    public Offer(String steamLink, String garageLink, String message, Platform platform, long postedTime) {
+    public Offer(String username, String steamLink, String garageLink, String message, Platform platform, long postedTime) {
         has = new ArrayList<>();
         wants = new ArrayList<>();
+        this.username = username;
         this.steamLink = steamLink;
         this.garageLink = garageLink;
         this.message = message;
         this.platform = platform;
         this.postedTime = postedTime;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getSteamLink() {

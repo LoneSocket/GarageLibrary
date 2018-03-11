@@ -41,6 +41,8 @@ class OfferParser {
             }
         }
         Elements platforms = element.getElementsByClass("rlg-trade-platform-name");
+        String rlg = platforms.get(0).child(1).text();
+        String username = rlg.substring(14, rlg.length());
         String platformName = platforms.get(0).text().toLowerCase();
         Platform platform;
         if (platformName.contains("steam")) {
@@ -73,7 +75,7 @@ class OfferParser {
             default:
         }
         long postedTime = System.currentTimeMillis() + elapsedTime;
-        Offer offer = new Offer(steamLink, garageLink, note, platform, postedTime);
+        Offer offer = new Offer(username, steamLink, garageLink, note, platform, postedTime);
         Element items = element.getElementsByClass("rlg-trade-display-items").get(0);
         Elements hasItems = items.child(0).children();
         for (Element item : hasItems) {
