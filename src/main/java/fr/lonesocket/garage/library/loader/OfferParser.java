@@ -2,6 +2,7 @@ package fr.lonesocket.garage.library.loader;
 
 import fr.lonesocket.garage.library.model.Item;
 import fr.lonesocket.garage.library.model.Offer;
+import fr.lonesocket.garage.library.model.Platform;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -39,7 +40,40 @@ class OfferParser {
                 steamLink = p.child(1).attr("href");
             }
         }
-        Offer offer = new Offer(steamLink, garageLink, note);
+        Elements platforms = element.getElementsByClass("rlg-trade-platform-name");
+        String platformName = platforms.get(0).text().toLowerCase();
+        Platform platform;
+        if (platformName.contains("steam")) {
+            platform = Platform.STEAM;
+        } else if (platformName.contains("psn")) {
+            platform = Platform.PS4;
+        } else if (platformName.contains("xbox")) {
+            platform = Platform.XBOX;
+        } else if (platformName.contains("switch")) {
+            platform = Platform.SWITCH;
+        } else {
+            platform = Platform.NOT_KNOWN_PLATFORM;
+        }
+        Elements postedMessages = element.getElementsByClass("rlg-trade-display-added");
+        String postedMessage = postedMessages.get(0).text();
+        String[] postedMessageWords = postedMessage.split(" ");
+        long elapsedTime = Long.parseLong(postedMessageWords[1]) * 1000; // seconds in milliseconds
+        String unit = postedMessageWords[2].toLowerCase();
+        if(unit.endsWith("s")){
+            unit = unit.substring(0, unit.length()-1);
+        }
+        switch (unit){
+            case "day":
+                elapsedTime *= 24;
+            case "hour":
+                elapsedTime *= 60;
+            case "minute":
+                elapsedTime *= 60;
+                break;
+            default:
+        }
+        long postedTime = System.currentTimeMillis() + elapsedTime;
+        Offer offer = new Offer(steamLink, garageLink, note, platform, postedTime);
         Element items = element.getElementsByClass("rlg-trade-display-items").get(0);
         Elements hasItems = items.child(0).children();
         for (Element item : hasItems) {

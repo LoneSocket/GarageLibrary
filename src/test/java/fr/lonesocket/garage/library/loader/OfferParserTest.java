@@ -1,6 +1,7 @@
 package fr.lonesocket.garage.library.loader;
 
 import fr.lonesocket.garage.library.model.Offer;
+import fr.lonesocket.garage.library.model.Platform;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
@@ -34,5 +35,19 @@ public class OfferParserTest {
     public void parseItemTest() {
         List<Offer> offers = new OfferParser().parseOffers(doc);
         Assert.assertEquals(496, offers.get(0).getHasItems().get(0).getId());
+    }
+
+    @Test
+    public void getElapsedSecondsTest() {
+        List<Offer> offers = new OfferParser().parseOffers(doc);
+        Offer offer = offers.get(5);
+        Assert.assertEquals(1, offer.getElapsedSeconds());
+    }
+
+    @Test
+    public void parsePlatformTest() {
+        List<Offer> offers = new OfferParser().parseOffers(doc);
+        Offer offer = offers.get(0);
+        Assert.assertEquals(Platform.STEAM, offer.getPlatform());
     }
 }

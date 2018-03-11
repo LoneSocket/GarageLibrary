@@ -53,14 +53,6 @@ public class Loader {
         }
     }
 
-    public Map<String, String> getPlatforms() throws LoaderException {
-        try {
-            return referenceParser.getPlatforms(getPage());
-        } catch (ReferenceParserException e) {
-            throw new LoaderException("Cannot load the platforms : " + e.getMessage(), e);
-        }
-    }
-
     private Document getCurrentPage() throws LoaderException {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(URL).openConnection();

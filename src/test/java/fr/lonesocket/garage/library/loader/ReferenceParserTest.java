@@ -61,17 +61,4 @@ public class ReferenceParserTest {
         Document doc = Jsoup.parse("<html></html>");
         new ReferenceParser().getPaints(doc);
     }
-
-    @Test
-    public void parsePlatformsTest() throws Exception {
-        Map<String, String> platforms = new ReferenceParser().getPlatforms(doc);
-        Assert.assertEquals(5, platforms.size());
-        Assert.assertEquals("Xbox One", platforms.get("3"));
-    }
-
-    @Test(expected = ReferenceParserException.class)
-    public void parsePlatformsWithoutPlatformTest() throws Exception {
-        Document doc = Jsoup.parse("<html></html>");
-        new ReferenceParser().getPlatforms(doc);
-    }
 }

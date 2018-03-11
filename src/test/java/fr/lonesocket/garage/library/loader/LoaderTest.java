@@ -35,11 +35,4 @@ public class LoaderTest {
         Map<String, String> paints = loader.getPaints();
         Assert.assertFalse(paints.isEmpty());
     }
-
-    @Test
-    public void getPlatforms() throws Exception {
-        Loader loader = new Loader();
-        Map<String, String> platforms = loader.getPlatforms();
-        Assert.assertFalse(platforms.isEmpty());
-    }
 }

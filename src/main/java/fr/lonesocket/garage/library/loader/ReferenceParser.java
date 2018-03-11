@@ -20,10 +20,6 @@ public class ReferenceParser {
         return parseOptions("Paint", doc);
     }
 
-    Map<String, String> getPlatforms(Document doc) throws ReferenceParserException {
-        return parseOptions("Platform", doc);
-    }
-
     private Map<String, String> parseOptions(String key, Document doc) throws ReferenceParserException {
         Elements elements = doc.getElementsByAttributeValue("data-placeholder", key);
         if (elements.size() != 1) {
