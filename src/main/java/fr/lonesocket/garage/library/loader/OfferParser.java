@@ -66,9 +66,11 @@ class OfferParser {
         }
         switch (unit){
             case "day":
-                elapsedTime *= 24;
+                elapsedTime *= 86400;
+                break;
             case "hour":
-                elapsedTime *= 60;
+                elapsedTime *= 3600;
+                break;
             case "minute":
                 elapsedTime *= 60;
                 break;

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Offer {
     private final String username;
-    private final String message;
+    private final String notes;
     private final String steamLink;
     private final String garageLink;
     private final Platform platform;
@@ -13,13 +13,13 @@ public class Offer {
     private List<Item> has;
     private List<Item> wants;
 
-    public Offer(String username, String steamLink, String garageLink, String message, Platform platform, long postedTime) {
+    public Offer(String username, String steamLink, String garageLink, String notes, Platform platform, long postedTime) {
         has = new ArrayList<>();
         wants = new ArrayList<>();
         this.username = username;
         this.steamLink = steamLink;
         this.garageLink = garageLink;
-        this.message = message;
+        this.notes = notes;
         this.platform = platform;
         this.postedTime = postedTime;
     }
@@ -36,8 +36,8 @@ public class Offer {
         return garageLink;
     }
 
-    public String getMessage() {
-        return message;
+    public String getNotes() {
+        return notes;
     }
 
     public List<Item> getHasItems() {
