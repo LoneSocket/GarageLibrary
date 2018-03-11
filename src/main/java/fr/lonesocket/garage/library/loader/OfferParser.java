@@ -75,7 +75,7 @@ class OfferParser {
                 break;
             default:
         }
-        long postedTime = System.currentTimeMillis() + elapsedTime;
+        long postedTime = System.currentTimeMillis() - elapsedTime;
         Offer offer = new Offer(username, steamLink, garageLink, note, platform, postedTime);
         Element items = element.getElementsByClass("rlg-trade-display-items").get(0);
         Elements hasItems = items.child(0).children();

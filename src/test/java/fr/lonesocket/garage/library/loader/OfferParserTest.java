@@ -43,7 +43,7 @@ public class OfferParserTest {
     public void getElapsedSecondsTest() throws Exception {
         List<Offer> offers = new OfferParser().parseOffers(doc, new ReferenceParser().getReferenceItems(doc));
         Offer offer = offers.get(5);
-        Assert.assertEquals(1, offer.getElapsedSeconds());
+        Assert.assertEquals(2, offer.getElapsedSeconds());
     }
 
     @Test
