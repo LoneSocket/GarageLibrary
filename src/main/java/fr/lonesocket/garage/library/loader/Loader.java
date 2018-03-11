@@ -20,7 +20,7 @@ public class Loader {
     private final OfferParser offerParser;
     private Document doc;
 
-    Loader() {
+    public Loader() {
         doc = null;
         referenceParser = new ReferenceParser();
         offerParser = new OfferParser();
