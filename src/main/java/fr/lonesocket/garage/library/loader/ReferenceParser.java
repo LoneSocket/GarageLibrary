@@ -12,14 +12,6 @@ public class ReferenceParser {
         return parseOptions("Item", doc);
     }
 
-    Map<String, String> getCertifications(Document doc) throws ReferenceParserException {
-        return parseOptions("Certification", doc);
-    }
-
-    Map<String, String> getPaints(Document doc) throws ReferenceParserException {
-        return parseOptions("Paint", doc);
-    }
-
     private Map<String, String> parseOptions(String key, Document doc) throws ReferenceParserException {
         Elements elements = doc.getElementsByAttributeValue("data-placeholder", key);
         if (elements.size() != 1) {

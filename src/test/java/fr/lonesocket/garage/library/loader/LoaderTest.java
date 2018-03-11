@@ -21,18 +21,4 @@ public class LoaderTest {
         Map<String, String> referenceItems = loader.getReferenceItems();
         Assert.assertFalse(referenceItems.isEmpty());
     }
-
-    @Test
-    public void getCertificationsTest() throws Exception {
-        Loader loader = new Loader();
-        Map<String, String> certifications = loader.getCertifications();
-        Assert.assertFalse(certifications.isEmpty());
-    }
-
-    @Test
-    public void getPaints() throws Exception {
-        Loader loader = new Loader();
-        Map<String, String> paints = loader.getPaints();
-        Assert.assertFalse(paints.isEmpty());
-    }
 }

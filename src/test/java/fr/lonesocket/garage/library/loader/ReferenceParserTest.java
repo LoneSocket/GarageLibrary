@@ -35,30 +35,4 @@ public class ReferenceParserTest {
         Document doc = Jsoup.parse("<html></html>");
         new ReferenceParser().getReferenceItems(doc);
     }
-
-    @Test
-    public void parseCertificationsTest() throws Exception {
-        Map<String, String> certifications = new ReferenceParser().getCertifications(doc);
-        Assert.assertEquals(17, certifications.size());
-        Assert.assertEquals("Paragon", certifications.get("7"));
-    }
-
-    @Test(expected = ReferenceParserException.class)
-    public void parseCertificationsWithoutCertificationTest() throws Exception {
-        Document doc = Jsoup.parse("<html></html>");
-        new ReferenceParser().getCertifications(doc);
-    }
-
-    @Test
-    public void parsePaintsTest() throws Exception {
-        Map<String, String> paints = new ReferenceParser().getPaints(doc);
-        Assert.assertEquals(15, paints.size());
-        Assert.assertEquals("Titanium White", paints.get("3"));
-    }
-
-    @Test(expected = ReferenceParserException.class)
-    public void parsePaintsWithoutPaintTest() throws Exception {
-        Document doc = Jsoup.parse("<html></html>");
-        new ReferenceParser().getPaints(doc);
-    }
 }

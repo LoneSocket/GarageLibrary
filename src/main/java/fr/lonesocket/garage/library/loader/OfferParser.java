@@ -1,30 +1,29 @@
 package fr.lonesocket.garage.library.loader;
 
-import fr.lonesocket.garage.library.model.Item;
-import fr.lonesocket.garage.library.model.Offer;
-import fr.lonesocket.garage.library.model.Platform;
+import fr.lonesocket.garage.library.model.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 class OfferParser {
 
-    List<Offer> parseOffers(Document doc) {
+    List<Offer> parseOffers(Document doc, Map<String, String> referenceItems) {
         Element grid = doc.getElementsByClass("rlg-grid").get(1);
         Elements list = grid.child(0).child(6).children();
         List<Offer> offers = new ArrayList<>();
         for (Element element : list) {
             if (element.attr("class").contains("rlg-trade-display-container")) {
-                offers.add(parseOffer(element));
+                offers.add(parseOffer(element, referenceItems));
             }
         }
         return offers;
     }
 
-    private Offer parseOffer(Element element) {
+    private Offer parseOffer(Element element, Map<String, String> referenceItems) {
         String note = null;
         String steamLink = null;
         String garageLink = null;
@@ -35,7 +34,7 @@ class OfferParser {
         Elements links = element.getElementsByClass("rlg-trade-link-container");
         if (links.size() == 1) {
             Element p = links.get(0).child(0).child(0).child(0);
-            garageLink = p.child(0).attr("href");
+            garageLink = Loader.BASE_URL + p.child(0).attr("href");
             if (p.children().size() >= 2) {
                 steamLink = p.child(1).attr("href");
             }
@@ -61,10 +60,10 @@ class OfferParser {
         String[] postedMessageWords = postedMessage.split(" ");
         long elapsedTime = Long.parseLong(postedMessageWords[1]) * 1000; // seconds in milliseconds
         String unit = postedMessageWords[2].toLowerCase();
-        if(unit.endsWith("s")){
-            unit = unit.substring(0, unit.length()-1);
+        if (unit.endsWith("s")) {
+            unit = unit.substring(0, unit.length() - 1);
         }
-        switch (unit){
+        switch (unit) {
             case "day":
                 elapsedTime *= 86400;
                 break;
@@ -81,34 +80,27 @@ class OfferParser {
         Element items = element.getElementsByClass("rlg-trade-display-items").get(0);
         Elements hasItems = items.child(0).children();
         for (Element item : hasItems) {
-            offer.addHasItem(parseItem(item));
+            offer.addHasItem(parseItem(item, referenceItems));
         }
         Elements wantItems = items.child(1).children();
         for (Element item : wantItems) {
-            offer.addWantsItem(parseItem(item));
+            offer.addWantsItem(parseItem(item, referenceItems));
         }
         return offer;
     }
 
-    private Item parseItem(Element element) {
+    private Item parseItem(Element element, Map<String, String> referenceItems) {
         String[] information = element.attr("href").split("[=&]");
-        int id = Integer.parseInt(information[1]);
-        int certificationId = parsePossibleEmptyId(information[3]);
-        int paintId = parsePossibleEmptyId(information[5]);
+        String id = information[1];
+        String certificationId = information[3];
+        String paintId = information[5];
         Element displayItem = element.child(0);
-        String imgUrl = displayItem.child(0).attr("src");
+        String imgUrl = Loader.BASE_URL + displayItem.child(0).attr("src");
         Elements amounts = displayItem.getElementsByClass("rlg-trade-display-item__amount");
         int quantity = 1;
         if (!amounts.isEmpty()) {
             quantity = Integer.parseInt(amounts.get(0).text());
         }
-        return new Item(id, certificationId, paintId, imgUrl, quantity);
-    }
-
-    private int parsePossibleEmptyId(String str) {
-        if (str.isEmpty()) {
-            return 0;
-        }
-        return Integer.parseInt(str);
+        return new Item(id, referenceItems.get(id), Certification.findCertificationById(certificationId), Paint.findPaintById(paintId), imgUrl, quantity);
     }
 }

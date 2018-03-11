@@ -1,16 +1,15 @@
 package fr.lonesocket.garage.library.model;
 
-public class Item {
-    private final int id;
-    private final int certificationId;
-    private final int paintId;
+public class Item extends ReferenceItem {
+    private final Certification certification;
+    private final Paint paint;
     private final String imgUrl;
     private final int quantity;
 
-    public Item(int id, int certificationId, int paintId, String imgUrl, int quantity) {
-        this.id = id;
-        this.certificationId = certificationId;
-        this.paintId = paintId;
+    public Item(String id, String name, Certification certification, Paint paint, String imgUrl, int quantity) {
+        super(id, name);
+        this.certification = certification;
+        this.paint = paint;
         this.imgUrl = imgUrl;
         this.quantity = quantity;
     }
@@ -23,7 +22,11 @@ public class Item {
         return imgUrl;
     }
 
-    public int getId() {
-        return id;
+    public Certification getCertification() {
+        return certification;
+    }
+
+    public Paint getPaint() {
+        return paint;
     }
 }

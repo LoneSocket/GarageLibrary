@@ -13,20 +13,21 @@ import java.util.List;
 import java.util.Map;
 
 public class Loader {
+    public static final String BASE_URL = "https://rocket-league.com";
     private static final String URL = "https://rocket-league.com/trading";
     private static final String USER_AGENT_HEADER = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0";
-    private Document doc;
     private final ReferenceParser referenceParser;
     private final OfferParser offerParser;
+    private Document doc;
 
-    public Loader() {
+    Loader() {
         doc = null;
         referenceParser = new ReferenceParser();
         offerParser = new OfferParser();
     }
 
     public List<Offer> getOffers() throws LoaderException {
-        return offerParser.parseOffers(getCurrentPage());
+        return offerParser.parseOffers(getLivePage(), getReferenceItems());
     }
 
     public Map<String, String> getReferenceItems() throws LoaderException {
@@ -37,23 +38,7 @@ public class Loader {
         }
     }
 
-    public Map<String, String> getCertifications() throws LoaderException {
-        try {
-            return referenceParser.getCertifications(getPage());
-        } catch (ReferenceParserException e) {
-            throw new LoaderException("Cannot load the certifications : " + e.getMessage(), e);
-        }
-    }
-
-    public Map<String, String> getPaints() throws LoaderException {
-        try {
-            return referenceParser.getPaints(getPage());
-        } catch (ReferenceParserException e) {
-            throw new LoaderException("Cannot load the paints : " + e.getMessage(), e);
-        }
-    }
-
-    private Document getCurrentPage() throws LoaderException {
+    private Document getLivePage() throws LoaderException {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(URL).openConnection();
             conn.setRequestProperty("User-Agent", USER_AGENT_HEADER);
@@ -76,8 +61,8 @@ public class Loader {
     }
 
     private Document getPage() throws LoaderException {
-        if(doc == null){
-            getCurrentPage();
+        if (doc == null) {
+            getLivePage();
         }
         return doc;
     }
