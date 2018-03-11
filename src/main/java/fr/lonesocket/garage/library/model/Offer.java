@@ -61,6 +61,6 @@ public class Offer {
     }
 
     public long getElapsedSeconds() {
-        return (postedTime - System.currentTimeMillis()) / 1000;
+        return (System.currentTimeMillis() - postedTime) / 1000;
     }
 }
